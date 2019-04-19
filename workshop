@@ -1,0 +1,124 @@
+==>GOOGLE COLAB
+
+
+!pip install tensorflow
+!pip install tensorflow-gpu
+
+import tensorflow as tf
+print(tf.__version__)
+
+
+UPGRADING SCRIPT
+
+!pip install tf-nightly-2.0-preview
+!ls -al
+!tf_upgrade_v2 --infile <filename>.py --outfile	<filename>-upgraded.py
+
+
+View->Table of contents
+Insert-> Code Snippets
+Runtime->Change runtime type
+
+
+
+
+
+
+==>SCIKIT LEARN
+
+
+IMPORTING DATA
+
+import pandas as pd
+url = "https://community.watsonanalytics.com/wp-content/uploads/2015/04/WA_Fn-UseC_-Sales-Win-Loss.csv"
+sales_data = pd.read_csv(url)
+
+
+#PREPROCESSING DATA
+
+from sklearn import preprocessing
+le = preprocessing.LabelEncoder()
+encoded_value = le.fit_transform(["paris", "paris", "tokyo", "amsterdam"])
+			OR
+		le.fit_transform(pandas_dataframe)
+
+
+
+#TRAIN AND TEST DATASET
+
+from sklearn.model_selection import train_test_split
+
+
+#NAIVE BAYES
+
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
+
+gnb = GaussianNB()
+gnb.fit(data_train, target_train)				//train
+pred = gnb.predict(data_test)					//test
+
+print(accuracy_score(target_test, pred, normalize = True))
+
+
+#LINEAR SVC
+
+from sklearn.svm import LinearSVC
+from sklearn.metrics import accuracy_score
+
+svc_model = LinearSVC(random_state=0)
+svc_model.fit(data_train, target_train)
+pred = svc_model.predict(data_test)
+
+
+#K-NEIGHBORS CLASSIFIER
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+neigh = KNeighborsClassifier(n_neighbors=3)
+neigh.fit(data_train, target_train)
+pred = neigh.predict(data_test)
+
+
+
+
+#PERFORMANCE COMPARISON
+
+1. GaussianNB
+from yellowbrick.classifier import ClassificationReport
+visualizer = ClassificationReport(gnb, classes=['Won','Loss'])
+visualizer.fit(data_train, target_train)  			# Fit the training data to the visualizer
+visualizer.score(data_test, target_test) 	 		# Evaluate the model on the test data
+g = visualizer.poof()						# Draw/show/poof the data
+
+
+2. LinearSVC
+from yellowbrick.classifier import ClassificationReport
+visualizer = ClassificationReport(svc_model, classes=['Won','Loss'])
+visualizer.fit(data_train, target_train)  			# Fit the training data to the visualizer
+visualizer.score(data_test, target_test)  			# Evaluate the model on the test data
+g = visualizer.poof()            				# Draw/show/poof the data
+
+
+3. KNeighborsClassifier
+from yellowbrick.classifier import ClassificationReport
+visualizer = ClassificationReport(neigh, classes=['Won','Loss'])
+visualizer.fit(data_train, target_train)  			# Fit the training data to the visualizer
+visualizer.score(data_test, target_test)  			# Evaluate the model on the test data
+g = visualizer.poof()            				# Draw/show/poof the data
+
+
+
+
+
+
+
+
+
+
+
+==>TENSORFLOW
+
+
